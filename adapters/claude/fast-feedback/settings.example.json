@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File components/hooks/fast-feedback/invoke-claude-hook.ps1",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

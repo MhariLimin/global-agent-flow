@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Change"
+  short_description: "Review diffs for concrete engineering defects"
+  default_prompt: "Use $review-change to inspect the current diff and report only actionable correctness, security, testing, and architecture findings."

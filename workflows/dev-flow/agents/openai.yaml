@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Flow"
+  short_description: "Guide changes from request through verified review"
+  default_prompt: "Use $dev-flow to guide this change through preparation, implementation, verification, review, and human approval."

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "project": "failing-fixture",
+  "checks": [
+    { "name": "fail", "command": "powershell", "args": ["-NoProfile", "-Command", "Write-Output expected-failure; exit 7"] }
+  ]
+}

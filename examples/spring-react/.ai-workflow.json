@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schemas/ai-workflow.schema.json",
+  "version": 1,
+  "project": "spring-react-example",
+  "checks": [
+    { "name": "backend-test", "command": "mvn", "args": ["-f", "smartcli-web-backend/pom.xml", "test"] },
+    { "name": "frontend-build", "command": "npm", "args": ["--prefix", "smartcli-web-frontend", "run", "build"] }
+  ]
+}

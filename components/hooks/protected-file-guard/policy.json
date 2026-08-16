@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "description": "Common secret and private-key filenames blocked from agent writes.",
+  "allowedNames": [
+    ".env.example",
+    ".env.sample",
+    ".env.template"
+  ],
+  "protectedPatterns": [
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    "*.pfx",
+    "*.p12",
+    "id_rsa*",
+    "id_ed25519*",
+    "credentials*.json",
+    "secrets*.json"
+  ]
+}

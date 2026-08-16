@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare Change"
+  short_description: "Turn requests into evidence-backed change briefs"
+  default_prompt: "Use $prepare-change to inspect this repository and turn my request into a focused, implementation-ready brief without editing code."

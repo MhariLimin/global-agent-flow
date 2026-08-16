@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:global-agent-flow:schema:project-config:v1",
+  "title": "Global Agent Flow project configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "project", "checks"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "project": { "type": "string", "minLength": 1 },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "command", "args"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "command": { "type": "string", "minLength": 1 },
+          "args": { "type": "array", "items": { "type": "string" } },
+          "paths": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "fastChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "extensions", "command", "args"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "extensions": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^\\." } },
+          "command": { "type": "string", "minLength": 1 },
+          "args": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

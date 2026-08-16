@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "project": "passing-fixture",
+  "checks": [
+    { "name": "pass", "command": "powershell", "args": ["-NoProfile", "-Command", "exit 0"] }
+  ]
+}

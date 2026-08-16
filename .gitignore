@@ -1,0 +1,5 @@
+.ai-workflow-reports/
+artifacts/
+*.tmp
+.DS_Store
+Thumbs.db

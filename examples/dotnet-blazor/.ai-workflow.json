@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schemas/ai-workflow.schema.json",
+  "version": 1,
+  "project": "dotnet-blazor-example",
+  "checks": [
+    { "name": "build", "command": "dotnet", "args": ["build", "--nologo"] },
+    { "name": "test", "command": "dotnet", "args": ["test", "--nologo", "--no-build"] }
+  ]
+}

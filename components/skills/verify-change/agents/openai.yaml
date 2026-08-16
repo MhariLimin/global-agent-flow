@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Change"
+  short_description: "Run scoped checks and report change quality"
+  default_prompt: "Use $verify-change to inspect this change, run the relevant deterministic checks, and produce a quality report."

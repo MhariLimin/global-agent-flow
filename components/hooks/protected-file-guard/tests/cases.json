@@ -1,0 +1,9 @@
+[
+  { "name": "ordinary source", "path": "src/app.ts", "mode": "enforce", "decision": "allow", "exitCode": 0 },
+  { "name": "environment secret", "path": ".env", "mode": "enforce", "decision": "deny", "exitCode": 2 },
+  { "name": "nested local environment", "path": "apps/web/.env.local", "mode": "enforce", "decision": "deny", "exitCode": 2 },
+  { "name": "environment example", "path": ".env.example", "mode": "enforce", "decision": "allow", "exitCode": 0 },
+  { "name": "private key", "path": "certs/signing.key", "mode": "enforce", "decision": "deny", "exitCode": 2 },
+  { "name": "credential json", "path": "config/credentials.prod.json", "mode": "enforce", "decision": "deny", "exitCode": 2 },
+  { "name": "audit protected file", "path": "secrets.json", "mode": "audit", "decision": "would-deny", "exitCode": 0 }
+]
