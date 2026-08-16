@@ -50,6 +50,9 @@ Run it directly:
 
 See `docs/getting-started.md` and `examples/` to integrate a project.
 
+To resume the guided component-selection sessions from another device, read
+`docs/session-handoff.md`.
+
 ## Architecture
 
 ```text
