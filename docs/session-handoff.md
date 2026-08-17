@@ -183,6 +183,39 @@ proposal from scratch, search for a maintained authoritative or trusted
 existing component, compare fit and permissions, then ask the user whether to
 install, adapt, or build.
 
+### Common ecosystem usage pattern
+
+Do not claim that reliable worldwide adoption percentages exist; none were
+established in the prior research. The practical pattern is hybrid:
+
+```text
+general-purpose capability  -> install a trusted skill or plugin
+project/team-specific flow  -> create and version a custom component
+close but unsuitable match  -> adapt or fork with license/attribution intact
+multiple related components -> distribute as a versioned plugin
+```
+
+People commonly install general-purpose components such as framework guidance,
+documentation helpers, or broadly useful review tools. Teams more often create
+their own skills for private architecture, business rules, approval processes,
+and quality standards.
+
+Treat hooks more cautiously than instruction-only skills. Hooks run
+automatically, can execute commands, and depend on provider events and local
+tooling, so project-specific hooks are frequently custom or carefully adapted.
+Before enabling a downloaded hook, inspect its trigger, command, inputs,
+permissions, network behavior, failure mode, and protected-data handling.
+
+For every future researched proposal, follow this decision sequence:
+
+1. Search for maintained official or trusted implementations.
+2. Inspect source, permissions, scripts/hooks, license, releases, and update
+   behavior.
+3. Compare the candidate against Global Agent Flow's safety and evidence
+   contracts.
+4. Present the user with the appropriate choice: install, adapt, or build.
+5. Pin/version the selected component and test it before automatic activation.
+
 ## How earlier one-by-one selection worked
 
 The user requested internet research into useful global skills, hooks, and
