@@ -58,6 +58,18 @@ Run it directly:
 .\scripts\scan-change.ps1 -ProjectPath C:\path\to\project
 ```
 
+Or install the short `gaf` command and shared skills:
+
+```powershell
+Set-Alias gaf E:\_Yua\Projects\global-agent-flow\scripts\gaf.ps1
+gaf install
+gaf verify E:\_Yua\Projects\aethra
+gaf scan E:\_Yua\Projects\aethra
+```
+
+Then invoke the full workflow with `Use $dev-flow to implement [feature]` in
+Codex or `/dev-flow implement [feature]` in Claude. See `docs/gaf-cli.md`.
+
 See `docs/getting-started.md` and `examples/` to integrate a project.
 
 To resume the guided component-selection sessions from another device, read

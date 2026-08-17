@@ -30,6 +30,9 @@ Run-Case 'passing' 0 'planned' 'skipped' -DryRun
 $securityScanTests = Join-Path $repository 'tests\scan-change.ps1'
 & $securityScanTests
 
+$gafTests = Join-Path $repository 'tests\gaf.ps1'
+& $gafTests
+
 $skill = Join-Path $repository 'components\skills\verify-change\SKILL.md'
 $content = Get-Content -LiteralPath $skill -Raw
 if ($content -notmatch '(?s)^---\s+name: verify-change\s+description: .+?\s+---') {

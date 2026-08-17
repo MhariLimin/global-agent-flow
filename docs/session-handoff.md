@@ -106,6 +106,9 @@ Git identity. Initial commit: `130309f` (`Initial commit`).
 - `scan-change`: runs project-approved deterministic security scanners while
   suppressing their potentially sensitive output and normalizing pass/fail
   evidence.
+- `scripts/gaf.ps1`: installs and synchronizes all canonical skills into Codex
+  and Claude user locations and exposes short `verify`, `scan`, and `status`
+  commands.
 
 ### Hooks
 
