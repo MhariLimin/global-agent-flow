@@ -24,7 +24,8 @@ foreach ($requirement in @(
     'Gate B',
     'Never auto-approve gates',
     'Never commit, push',
-    'repeat Verify and Review'
+    'repeat Verify, Review,',
+    'invoke `review-security` as an independent, read-only'
 )) {
     if ($content -notmatch [regex]::Escape($requirement)) {
         throw "dev-flow is missing requirement: $requirement"

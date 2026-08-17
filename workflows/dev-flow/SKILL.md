@@ -28,9 +28,13 @@ Follow `references/stages.md`. Maintain the current state using
 4. **Verify:** invoke `verify-change`; failed deterministic checks block
    progression.
 5. **Review:** invoke `review-change` read-only against the complete diff.
-6. **Remediate:** fix approved blocking findings, then repeat Verify and Review.
+6. **Security review:** invoke `review-security` as an independent, read-only
+   role when the change affects a trust boundary or the approved brief requires
+   it. Deterministic scanners remain separate evidence.
+7. **Remediate:** fix approved blocking findings, then repeat Verify, Review,
+   and applicable Security review.
    Limit the loop using `references/failure-and-resume.md`.
-7. **Gate B — accept result:** present implementation, evidence, findings,
+8. **Gate B — accept result:** present implementation, evidence, findings,
    remaining risks, and manual checks for the human's final decision.
 
 ## Handoffs

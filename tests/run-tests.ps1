@@ -49,6 +49,9 @@ $debugSkillTests = Join-Path $repository 'tests\skill-contracts\debug-systematic
 $reviewSkillTests = Join-Path $repository 'tests\skill-contracts\review-change.ps1'
 & $reviewSkillTests
 
+$securityReviewSkillTests = Join-Path $repository 'tests\skill-contracts\review-security.ps1'
+& $securityReviewSkillTests
+
 $prepareSkillTests = Join-Path $repository 'tests\skill-contracts\prepare-change.ps1'
 & $prepareSkillTests
 

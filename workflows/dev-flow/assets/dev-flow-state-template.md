@@ -1,7 +1,7 @@
 # Dev Flow State: [change]
 
 - **Route:** feature | bug
-- **Current stage:** Prepare | Gate A | Implement | Verify | Review | Remediate | Gate B
+- **Current stage:** Prepare | Gate A | Implement | Verify | Review | Security review | Remediate | Gate B
 - **Status:** active | waiting-human | blocked | complete
 - **Repository/branch:**
 - **Last updated:**
@@ -22,6 +22,7 @@
 | Implement | pending | |
 | Verify | pending | |
 | Review | pending | |
+| Security review | pending | |
 | Remediate | pending | |
 | Gate B | pending | |
 

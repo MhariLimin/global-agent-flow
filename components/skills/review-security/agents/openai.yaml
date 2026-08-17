@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Security"
+  short_description: "Inspect changes for concrete security risks"
+  default_prompt: "Use $review-security as a read-only subagent to inspect the current change for concrete security vulnerabilities."

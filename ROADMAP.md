@@ -6,8 +6,10 @@
 - **0.1 Prepare:** context selection and implementation brief skill complete.
 - **0.2 Orchestrate:** resumable Dev Flow with human gates complete.
 - **0.2 Enforce:** protected-file guard and post-edit fast feedback complete.
-- **0.3 Review:** read-only security and test-strategy subagents.
-- **0.4 Integrate:** reusable CI workflow and least-privilege GitHub access.
+- **0.3 Security review:** read-only, evidence-based security subagent complete.
+- **0.3 Test strategy:** declined on 2026-08-17; do not add unless reconsidered.
+- **0.4 Integrate:** reusable CI quality gate declined on 2026-08-17; do not
+  add unless reconsidered.
 - **0.5 Evaluate:** repository-derived task fixtures, rubrics, and regression
   metrics.
 

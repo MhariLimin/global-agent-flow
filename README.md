@@ -33,6 +33,10 @@ regression evidence before a bug is considered resolved.
 concrete, triggered defects with impact, evidence, correction direction, and
 confidence; deterministic checks remain a separate evidence layer.
 
+`review-security` is a read-only security subagent procedure. It traces
+realistic abuse paths across changed trust boundaries, keeps scanner evidence
+separate, and reports residual uncertainty for human approval.
+
 `prepare-change` is the context-engineering entry point. It turns a request into
 an evidence-backed brief with selected context, known/assumed/unknown facts,
 testable acceptance criteria, risks, and implementation handoff.
