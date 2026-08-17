@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scan Change"
+  short_description: "Run configured security scanners safely"
+  default_prompt: "Use $scan-change to run the project-configured deterministic security scanners and summarize the redacted results."

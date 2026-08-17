@@ -7,7 +7,7 @@
 | Implement | Approved brief | Scoped diff | Conflict, missing authority, or changed premise |
 | Verify | Diff and project config | Deterministic report | Any required failed/missing check |
 | Review | Brief, diff, verification | Prioritized findings | Critical/high or accepted project-defined blocker |
-| Security review | Brief, diff, verification | Security findings and residual risk | Critical/high or accepted security blocker |
+| Security review | Brief, diff, verification, configured scan report | Security findings and residual risk | Failed required scan or critical/high security blocker |
 | Remediate | Approved findings | Corrected diff | Loop limit or new material decision |
 | Gate B | All artifacts | Human accept/revise/reject decision | Human decision required |
 

@@ -3,5 +3,8 @@
   "project": "missing-tool-fixture",
   "checks": [
     { "name": "missing", "command": "definitely-not-a-real-executable", "args": [] }
+  ],
+  "securityChecks": [
+    { "name": "missing-scan", "kind": "sast", "command": "definitely-not-installed-security-scanner", "args": [] }
   ]
 }

@@ -37,6 +37,10 @@ confidence; deterministic checks remain a separate evidence layer.
 realistic abuse paths across changed trust boundaries, keeps scanner evidence
 separate, and reports residual uncertainty for human approval.
 
+`scan-change` runs project-selected secret, dependency, SAST, or infrastructure
+scanners and produces a normalized pass/fail report. Scanner output is
+suppressed and never stored because it may contain secrets or sensitive source.
+
 `prepare-change` is the context-engineering entry point. It turns a request into
 an evidence-backed brief with selected context, known/assumed/unknown facts,
 testable acceptance criteria, risks, and implementation handoff.
@@ -50,6 +54,8 @@ Run it directly:
 ```powershell
 .\scripts\verify-change.ps1 -ProjectPath C:\path\to\project -DryRun
 .\scripts\verify-change.ps1 -ProjectPath C:\path\to\project
+.\scripts\scan-change.ps1 -ProjectPath C:\path\to\project -DryRun
+.\scripts\scan-change.ps1 -ProjectPath C:\path\to\project
 ```
 
 See `docs/getting-started.md` and `examples/` to integrate a project.

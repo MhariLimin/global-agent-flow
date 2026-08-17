@@ -3,5 +3,8 @@
   "project": "failing-fixture",
   "checks": [
     { "name": "fail", "command": "powershell", "args": ["-NoProfile", "-Command", "Write-Output expected-failure; exit 7"] }
+  ],
+  "securityChecks": [
+    { "name": "dependency-scan", "kind": "dependency", "command": "powershell", "args": ["-NoProfile", "-Command", "Write-Output 'sensitive finding'; exit 3"] }
   ]
 }

@@ -10,6 +10,8 @@
 - **0.3 Test strategy:** declined on 2026-08-17; do not add unless reconsidered.
 - **0.4 Integrate:** reusable CI quality gate declined on 2026-08-17; do not
   add unless reconsidered.
+- **0.4 Scan:** redacted, project-configured deterministic security scanning
+  integration complete.
 - **0.5 Evaluate:** repository-derived task fixtures, rubrics, and regression
   metrics.
 
