@@ -13,7 +13,10 @@
 - **0.4 Scan:** redacted, project-configured deterministic security scanning
   integration complete.
 - **0.4 Distribute:** `gaf` installs/synchronizes user skills for Codex and
-  Claude and exposes short verify/scan commands.
+  Claude and exposes short verify/scan commands; retain as a local development
+  convenience.
+- **0.4 Package:** next decision is a versioned plugin using provider-supported
+  installation and updates; do not publish or install globally without approval.
 - **0.5 Evaluate:** repository-derived task fixtures, rubrics, and regression
   metrics.
 

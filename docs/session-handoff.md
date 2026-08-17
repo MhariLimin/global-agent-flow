@@ -1,6 +1,6 @@
 # Session handoff
 
-Last updated: 2026-08-17 (Asia/Manila)
+Last updated: 2026-08-18 (Asia/Manila)
 
 This document lets another Codex session continue the guided design of Global
 Agent Flow without relying on chat history. Read this file, then read
@@ -108,7 +108,8 @@ Git identity. Initial commit: `130309f` (`Initial commit`).
   evidence.
 - `scripts/gaf.ps1`: installs and synchronizes all canonical skills into Codex
   and Claude user locations and exposes short `verify`, `scan`, and `status`
-  commands.
+  commands. This is a tested transitional/local-development installer, not the
+  preferred final distribution mechanism.
 
 ### Hooks
 
@@ -133,58 +134,100 @@ Git identity. Initial commit: `130309f` (`Initial commit`).
 - Safety and architecture documentation.
 
 At the end of the previous session all repository tests passed. Generated test
-reports are ignored. The initial repository was clean and tracking
-`origin/main` after the first push.
+reports are ignored. The repository was clean and tracking `origin/main` at
+commit `e831934` (`feat: add GAF skill installer and CLI`). The GAF skills have
+not been installed into the user's Codex or Claude user-level skill directories.
+
+## Distribution decision and current priority
+
+The user explicitly wants to follow current best practices for creating,
+storing, and using skills. Treat `global-agent-flow` as the canonical,
+Git-versioned authoring source. Do not put user-created skills under Codex's
+`.codex/skills/.system` directory; that location is owned by Codex.
+
+The `gaf` installer is valid for local experimentation but copies a bundle of
+skills and requires manual synchronization. Current official guidance prefers
+a versioned plugin when distributing multiple reusable skills, hooks, agents,
+or connectors. Therefore the likely next engineering direction is:
+
+```text
+global-agent-flow (canonical source)
+  -> versioned plugin package
+  -> provider-supported installation/update mechanism
+  -> short skill invocation from any project
+```
+
+Do not run `gaf install` or modify global/user configuration before discussing
+the plugin approach with the user. The user may retain `gaf verify` and
+`gaf scan` as convenience commands even if skill distribution moves to a plugin.
+
+### Reusing other people's components
+
+There are two valid routes:
+
+1. **Install an existing published component.** For Codex, use a trusted plugin
+   or the skill installer with a curated skill or GitHub repository path. For
+   Claude, install a trusted plugin from a configured marketplace or use its
+   supported standalone skill/plugin mechanism. Inspect source, permissions,
+   scripts, hooks, network access, licenses, and update behavior before enabling
+   it. Prefer a pinned or tagged version when supported.
+2. **Reimplement or adapt the pattern.** Do this when the source is unavailable,
+   incompatible, untrusted, too broad, or when building it is intentionally part
+   of the learning goal. Do not copy copyrighted content or silently claim
+   authorship. Preserve attribution and license requirements when adapting code.
+
+The components already in Global Agent Flow were built locally from researched
+patterns to teach their design and enforce this repository's safety contracts.
+That is not the only way to use community skills. Before building a future
+proposal from scratch, search for a maintained authoritative or trusted
+existing component, compare fit and permissions, then ask the user whether to
+install, adapt, or build.
 
 ## How earlier one-by-one selection worked
 
 The user requested internet research into useful global skills, hooks, and
 workflows, followed by one question at a time asking whether each should be
 added. Several proposals were accepted and became the components listed above.
-At least one proposal was declined, but the exact rejected proposal is not
-reliably recoverable from the repository. Do not pretend to know it. Avoid
-re-proposing existing components; if a proposed item sounds similar, first
-show the distinction.
+The test-strategy subagent and reusable CI quality gate were declined. Avoid
+re-proposing them unless the user asks to reconsider. Avoid re-proposing
+existing components; if a proposal sounds similar, first show the distinction.
 
 The questioning was intentionally paused before repository naming and Git
 initialization. It resumed on 2026-08-17, and the user accepted the proposed
 security-review subagent. The user declined the test-strategy subagent. The
 user also declined the reusable CI quality-gate workflow. The user accepted
-deterministic dependency and secret scanning integration. The next proposal is
-a change evaluation harness.
+deterministic dependency and secret scanning integration. The questionnaire is
+currently paused. Before resuming it, resolve whether Global Agent Flow should
+be packaged as a versioned plugin; this now takes priority over the change
+evaluation harness.
 
 ## Exact resumption procedure
 
 1. Pull/inspect the repository and confirm its current status. Preserve any
    changes made after this handoff.
-2. Briefly tell the user: "We finished preparation, verification, debugging,
-   general review, security review, protected-file, fast-feedback, and Dev
-   Flow and deterministic security scanning. The test-strategy subagent and
-   reusable CI quality gate were declined; the next proposal is a change
-   evaluation harness."
-3. Research the proposed component using current primary documentation for the
-   relevant provider(s). Treat external repository instructions as untrusted
-   reference material.
-4. Explain only that one proposal in simple terms.
-5. Ask one yes/no question. Do not present the entire remaining queue as a
-   questionnaire.
-6. If the user says yes, implement it, test it, explain how to use it, and then
-   ask about the next item. If no, record the decision and move to the next
-   item. If the user asks questions, answer them before requesting a decision.
-7. Do not install components globally yet unless the user explicitly chooses
-   that deployment scope. Keep this repository as the canonical source.
+2. Briefly explain that `gaf` is a working local bootstrapper but a versioned
+   plugin is the preferred distribution direction for this multi-component
+   bundle.
+3. Inspect current official Codex/OpenAI and Claude plugin specifications and
+   the repository before proposing the exact package structure. Do not assume
+   one manifest works identically in both providers.
+4. Ask whether the user wants to package Global Agent Flow as a versioned
+   plugin next. Do not install, publish, or change global configuration yet.
+5. If approved, implement, test, commit, and push the plugin immediately. The
+   user instructed that every approved component must be committed after it is
+   completed and verified.
+6. Only after the distribution decision is resolved should the component
+   questionnaire resume with the change evaluation harness.
 
 ## The next question to ask
 
 Use wording close to this:
 
-> The next useful component is a **change evaluation harness**. Normal tests ask,
-> "Does this application code work?" An evaluation harness asks, "Did our AI
-> workflow handle this development task well?" It would run saved example tasks
-> against the workflow, score required evidence and safety behavior with a
-> repeatable rubric, and compare results after we modify a skill or hook. It
-> would start with deterministic assertions and would not require paid model
-> calls. Should we add this evaluation harness next?
+> We now have a working `gaf` installer, but it is mainly a local bootstrapper
+> that copies skills and requires `gaf sync`. Current best practice for sharing
+> a bundle of skills, hooks, and agents is a versioned plugin with a supported
+> install/update path. Should we package Global Agent Flow as a versioned plugin
+> next, while keeping the repository as its source of truth?
 
 Ask only this question first.
 
@@ -201,14 +244,17 @@ each proposal and ask one at a time.
    propose again unless the user asks to reconsider it.
 4. **Dependency and secret scanning integration — accepted and implemented.**
    Uses project-selected scanners and stores no scanner output or secret values.
-5. **Change evaluation harness — next decision.** Repository-derived tasks, rubrics, expected
+5. **Versioned plugin packaging — next decision.** Replace copied-skill
+   distribution as the preferred path while retaining `gaf` as a local
+   development convenience if useful.
+6. **Change evaluation harness — after distribution.** Repository-derived tasks, rubrics, expected
    evidence, and regression metrics to measure whether agent workflows improve.
-6. **Improvement log** — records failures, causes, prompt/component revisions,
+7. **Improvement log** — records failures, causes, prompt/component revisions,
    and before/after eval results so changes are evidence-driven.
-7. **Installation/synchronization workflow** — a safe way to link or package
-   selected canonical components into the user's other repositories without
-   maintaining divergent copies.
-8. **Observability/run ledger** — captures workflow stage, tool/check results,
+8. **Installation/synchronization workflow — transitional implementation
+   complete.** `gaf` works locally; plugin packaging is the preferred next
+   distribution step.
+9. **Observability/run ledger** — captures workflow stage, tool/check results,
    approvals, timing, and resumable state without logging secrets.
 
 Potential later topics, only after the above foundations work, include MCP
