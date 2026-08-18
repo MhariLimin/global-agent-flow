@@ -1,6 +1,6 @@
 # Session handoff
 
-Last updated: 2026-08-18 (Asia/Manila)
+Last updated: 2026-08-19 (Asia/Manila)
 
 This document lets another Codex session continue the guided design of Global
 Agent Flow without relying on chat history. Read this file, then read
@@ -157,9 +157,37 @@ global-agent-flow (canonical source)
   -> short skill invocation from any project
 ```
 
-Do not run `gaf install` or modify global/user configuration before discussing
-the plugin approach with the user. The user may retain `gaf verify` and
-`gaf scan` as convenience commands even if skill distribution moves to a plugin.
+Do not run `gaf install`, install the future plugin, or modify global/user
+configuration without explicit authorization. The user may retain `gaf verify`
+and `gaf scan` as convenience commands even if skill distribution moves to a
+plugin.
+
+The user has now agreed on this immediate sequence:
+
+1. Package Global Agent Flow as a versioned plugin v1.
+2. Install/test it and verify that its skills and hooks are discoverable and
+   behave correctly.
+3. Build the ProjectOrbit ticketing and agent-orchestration application.
+4. Learn how to find, inspect, safely install, test, fork, and customize
+   official and third-party skills only after the preceding work.
+
+Do not move directly from plugin v1 to third-party skill exploration. The
+ProjectOrbit work comes first.
+
+### Plugin discovery behavior already explained
+
+Once Global Agent Flow is packaged and installed correctly:
+
+- its skills should be discoverable through `/skills` and explicitly invoked;
+- its hooks should be visible in `/hooks` for inspection and trust management;
+- hooks are event-driven and run automatically after they are reviewed and
+  trusted rather than being manually invoked like skills;
+- a new Codex session may be required after installation or an update.
+
+The user asked why it was called the “GAF plugin.” `GAF` was only an informal
+abbreviation for Global Agent Flow, not an industry term or best practice.
+Prefer **Global Agent Flow plugin** on first mention, **the plugin** afterward,
+and `global-agent-flow` only when referring to the repository/package slug.
 
 ### Reusing other people's components
 
@@ -238,31 +266,131 @@ evaluation harness.
 
 1. Pull/inspect the repository and confirm its current status. Preserve any
    changes made after this handoff.
-2. Briefly explain that `gaf` is a working local bootstrapper but a versioned
-   plugin is the preferred distribution direction for this multi-component
-   bundle.
-3. Inspect current official Codex/OpenAI and Claude plugin specifications and
+2. Inspect current official Codex/OpenAI and Claude plugin specifications and
    the repository before proposing the exact package structure. Do not assume
    one manifest works identically in both providers.
-4. Ask whether the user wants to package Global Agent Flow as a versioned
-   plugin next. Do not install, publish, or change global configuration yet.
-5. If approved, implement, test, commit, and push the plugin immediately. The
+3. The user has already approved the versioned-plugin direction. Explain the
+   intended v1 package boundaries concisely, then implement the repository-side
+   package without re-asking whether to proceed. Ask only if a material product
+   or provider choice cannot be resolved safely.
+4. Implement and test plugin v1, then commit it immediately. The
    user instructed that every approved component must be committed after it is
-   completed and verified.
-6. Only after the distribution decision is resolved should the component
-   questionnaire resume with the change evaluation harness.
+   completed and verified. Do not publish, install globally, push, or otherwise
+   change external/user-level state without the required authorization.
+5. Test installation/discovery when authorized, including `/skills`, `/hooks`,
+   hook trust behavior, and a small invocation test.
+6. After plugin v1, continue with ProjectOrbit before resuming the component
+   questionnaire or third-party skill exercises.
 
-## The next question to ask
+## Next implementation task
 
-Use wording close to this:
+Create Global Agent Flow plugin v1 using the current official specifications.
+Keep this repository as the canonical versioned source. Preserve the working
+`gaf` command as a local-development convenience unless the plugin design makes
+a specific part redundant and the user approves its removal.
 
-> We now have a working `gaf` installer, but it is mainly a local bootstrapper
-> that copies skills and requires `gaf sync`. Current best practice for sharing
-> a bundle of skills, hooks, and agents is a versioned plugin with a supported
-> install/update path. Should we package Global Agent Flow as a versioned plugin
-> next, while keeping the repository as its source of truth?
+## ProjectOrbit direction agreed on 2026-08-19
 
-Ask only this question first.
+The user plans to create **ProjectOrbit**, an original project-management and
+ticketing application with a feature breadth similar to OpenProject. It should
+include login, users, roles and permissions, projects, work packages, boards,
+backlogs, sprints, versions/releases, story points, assignees, roadmaps/Gantt,
+calendars, team planning, activity, notifications, and administration.
+
+Its differentiating purpose is controlled AI-assisted software delivery across
+the user's repositories. A representative flow is:
+
+```text
+ticket targets smartcli-builder
+  -> explicit Ready for Planning state
+  -> planning agent inspects ticket and repository
+  -> human approves the plan
+  -> implementation agent works on a branch
+  -> deterministic checks and security/review stages run
+  -> human reviews
+  -> ticket receives status, evidence, logs, and eventual PR reference
+```
+
+Default workflow states discussed:
+
+```text
+Draft
+  -> Ready for Planning
+  -> Planning
+  -> Plan Review
+  -> Ready for Implementation
+  -> Implementing
+  -> Verifying
+  -> Security Review
+  -> Human Review
+  -> Completed / Failed / Cancelled / Needs Input
+```
+
+Safety decisions:
+
+- Creating a ticket must not automatically authorize code changes.
+- Planning begins only after an explicit state transition.
+- Human plan approval is required before implementation by default.
+- Target repository and branch must be visible before approval.
+- Agent output remains a proposal until approved.
+- Initiators, approvals, commands/checks, and results need an audit trail.
+- The ticketing application orchestrates when and where work runs; the Global
+  Agent Flow plugin supplies reusable planning, implementation, verification,
+  and review behavior.
+
+### ProjectOrbit frontend v1
+
+A comprehensive Bolt.new prompt was created at:
+
+`E:\_Yua\Projects\PROJECTORBIT_BOLT_PROMPT.md`
+
+This file is currently outside the `global-agent-flow` repository. No
+ProjectOrbit repository or application code has been created locally yet.
+
+The user selected **ProjectOrbit** as the product name and `project-orbit` as
+the likely future repository slug. Suggested tagline: **Keep every project in
+motion.** Suggested description: **AI-assisted project tracking and development
+orchestration.**
+
+The Bolt prompt requests a React/TypeScript/Vite/Tailwind frontend prototype
+with realistic local data, role-aware screens, accessible UI, light/dark
+themes, restrained animation, and an Agent Runs area. It explicitly says not
+to copy OpenProject branding or layouts.
+
+Bolt produced and the user shared a 17-stage plan. The recommended answers to
+Bolt's three questions were:
+
+1. Keep frontend v1 data in `localStorage`; document Bolt Database as a future
+   integration point.
+2. Use established accessible libraries, preferably shadcn/ui with Radix
+   primitives, instead of hand-building complex accessibility behavior.
+3. Include all six demo roles: System Administrator, Project Administrator,
+   Product Owner, Developer, Reviewer, and Viewer.
+
+The recommended build instruction was to proceed in phases, run the build and
+fix errors after each phase, and disclose any required scope reduction rather
+than silently omitting features.
+
+ProjectOrbit is intentionally scheduled after Global Agent Flow plugin v1 and
+its installation/discovery verification, but before third-party skill study.
+
+## Third-party skills learning queued after ProjectOrbit
+
+The user wants hands-on practice with skills they did not create. When this
+stage is reached:
+
+1. List/browse official curated skills.
+2. Select and inspect one skill's `SKILL.md`, scripts, permissions, network
+   behavior, update method, and license before installation.
+3. Install it using the supported installer or versioned plugin mechanism.
+4. Start a fresh session if required and verify discovery through `/skills`.
+5. Test it in a disposable or low-risk project.
+6. Compare keeping it unchanged with pinning, forking, or adapting it.
+
+Reinforce that third-party skills are downloaded code/instructions and must be
+reviewed before trust. The user does not need to recreate every useful skill
+from scratch; a hybrid of trusted installs and project-specific custom skills
+is the expected practical approach.
 
 ## Proposed queue after that
 
@@ -277,17 +405,21 @@ each proposal and ask one at a time.
    propose again unless the user asks to reconsider it.
 4. **Dependency and secret scanning integration — accepted and implemented.**
    Uses project-selected scanners and stores no scanner output or secret values.
-5. **Versioned plugin packaging — next decision.** Replace copied-skill
-   distribution as the preferred path while retaining `gaf` as a local
-   development convenience if useful.
-6. **Change evaluation harness — after distribution.** Repository-derived tasks, rubrics, expected
+5. **Versioned plugin packaging — approved; next implementation.** Replace
+   copied-skill distribution as the preferred path while retaining `gaf` as a
+   local development convenience if useful.
+6. **ProjectOrbit — after plugin v1 verification.** Build the ticketing and
+   controlled agent-orchestration product described above.
+7. **Third-party skill learning — after ProjectOrbit.** Inspect, install, test,
+   and optionally adapt trusted skills without recreating everything manually.
+8. **Change evaluation harness — later.** Repository-derived tasks, rubrics, expected
    evidence, and regression metrics to measure whether agent workflows improve.
-7. **Improvement log** — records failures, causes, prompt/component revisions,
+9. **Improvement log** — records failures, causes, prompt/component revisions,
    and before/after eval results so changes are evidence-driven.
-8. **Installation/synchronization workflow — transitional implementation
+10. **Installation/synchronization workflow — transitional implementation
    complete.** `gaf` works locally; plugin packaging is the preferred next
    distribution step.
-9. **Observability/run ledger** — captures workflow stage, tool/check results,
+11. **Observability/run ledger** — captures workflow stage, tool/check results,
    approvals, timing, and resumable state without logging secrets.
 
 Potential later topics, only after the above foundations work, include MCP
